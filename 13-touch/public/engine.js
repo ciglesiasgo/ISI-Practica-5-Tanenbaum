@@ -33,7 +33,7 @@ var Game = new function() {
 
 	// Añadimos como un nuevo tablero al juego el panel con los
 	// botones para pantalla táctil
-	this.setBoard(4,new TouchControls());
+	this.setBoard(6,new TouchControls());
 
 	this.loop(); 
 
@@ -477,6 +477,8 @@ var TouchControls = function() {
 	var yLoc = Game.height - unitWidth;
 	this.drawSquare(ctx,gutterWidth,yLoc,"\u25C0", Game.keys['left']);
 	this.drawSquare(ctx,unitWidth + gutterWidth,yLoc,"\u25B6", Game.keys['right']);
+	this.drawSquare(ctx,2*unitWidth + gutterWidth,yLoc,"B",Game.keys['fireB']);
+	this.drawSquare(ctx,3*unitWidth,yLoc,"N",Game.keys['fireN']);
 	this.drawSquare(ctx,4*unitWidth,yLoc,"A",Game.keys['fire']);
 
 	// Recupera el estado salvado al principio del método
@@ -518,7 +520,25 @@ var TouchControls = function() {
 		Game.keys['right'] = true;
 	    } 
 	}
+	Game.keys['fireB'] = false;
+	Game.keys['fireN'] = false;
+	if(e.type == 'touchmove') {
+		for(var i=0;i<e.changedTouches.length;i++) {
 
+		    touch = e.changedTouches[i];
+
+		    // Al fijarnos sólo en las coordenadas X hacemos que toda
+		    // la franja vertical de cada botón sea activa.
+		    x = touch.pageX / Game.canvasMultiplier - Game.canvas.offsetLeft;
+		    y = touch.pageY / Game.canvasMultiplier - Game.canvas.offsetLeft;
+		    if(x > 2*unitWidth + gutterWidth && x < 3*unitWidth) {
+			Game.keys['fireB'] = (e.type == 'touchmove');
+		    } 
+		    if(x > 3*unitWidth  && x < 4*unitWidth) {
+			Game.keys['fireN'] = (e.type == 'touchmove');
+		    } 
+		}
+	}
 	// Detección de eventos sobre franja de la derecha: disparo
 	if(e.type == 'touchstart' || e.type == 'touchend') {
 	    for(i=0;i<e.changedTouches.length;i++) {
