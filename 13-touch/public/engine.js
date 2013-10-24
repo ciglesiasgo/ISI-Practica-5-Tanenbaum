@@ -522,23 +522,24 @@ var TouchControls = function() {
 	}
 	Game.keys['fireB'] = false;
 	Game.keys['fireN'] = false;
-	if(e.type == 'touchmove') {
 		for(var i=0;i<e.changedTouches.length;i++) {
 
 		    touch = e.changedTouches[i];
 
-		    // Al fijarnos sólo en las coordenadas X hacemos que toda
-		    // la franja vertical de cada botón sea activa.
 		    x = touch.pageX / Game.canvasMultiplier - Game.canvas.offsetLeft;
 		    y = touch.pageY / Game.canvasMultiplier - Game.canvas.offsetLeft;
-		    if(x > 2*unitWidth + gutterWidth && x < 3*unitWidth) {
+		    if (e.type == 'touchstart' && x > 2*unitWidth + gutterWidth && x < 4*unitWidth){
+			    xn = touch.pageX;
+			    yn = touch.pageY;
+		    }
+		    if(x > 2*unitWidth + gutterWidth && x < 4*unitWidth && yn > touch.pageY && xn > touch.pageX) {
 			Game.keys['fireB'] = (e.type == 'touchmove');
 		    } 
-		    if(x > 3*unitWidth  && x < 4*unitWidth) {
+		    if(x > 2*unitWidth + gutterWidth && x < 4*unitWidth && yn > touch.pageY && xn < touch.pageX) {
 			Game.keys['fireN'] = (e.type == 'touchmove');
 		    } 
 		}
-	}
+	
 	// Detección de eventos sobre franja de la derecha: disparo
 	if(e.type == 'touchstart' || e.type == 'touchend') {
 	    for(i=0;i<e.changedTouches.length;i++) {
