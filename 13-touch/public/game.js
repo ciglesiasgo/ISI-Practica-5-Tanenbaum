@@ -69,16 +69,16 @@ var startGame = function() {
 // override que substituyen a los de la plantilla en enemies para ese
 // enemigo.
 
-var level1 = [[ 0,     4000, 800,         'ltr'                  ]
+var level1 = [
   //  Comienzo, Fin,   Frecuencia,  Tipo,       Override
-   /* [ 0,        4000,  500,         'step'                 ],
+    [ 0,        4000,  500,         'step'                 ],
     [ 6000,     13000, 800,         'ltr'                  ],
     [ 10000,    16000, 400,         'circle'               ],
-    [ 17800,    20000, 500,         'straight', { x: 50  } ]
+    [ 17800,    20000, 500,         'straight', { x: 50  } ],
     [ 18200,    20000, 500,         'straight', { x: 90  } ],
     [ 18200,    20000, 500,         'straight', { x: 10  } ],
     [ 22000,    25000, 400,         'wiggle',   { x: 150 } ],
-    [ 22000,    25000, 400,         'wiggle',   { x: 100 }]*/
+    [ 22000,    25000, 400,         'wiggle',   { x: 100 }]
 ];
 
 var level2= [

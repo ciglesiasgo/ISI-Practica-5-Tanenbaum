@@ -523,6 +523,26 @@ var TouchControls = function() {
                      y+3*blockWidth/4+5);
     };
 
+    this.drawSquareG = function(ctx,x,y,txt,on) {
+	// Usamos un nivel de opacidad del fondo (globalAlpha)
+	// diferente para que cambie la apariencia del botón en
+	// función de si está presionado (opaco) o no (más
+	// transparente)
+	ctx.globalAlpha = on ? 0.9 : 0.6;
+
+	ctx.fillStyle =  "#CCC";
+	ctx.fillRect(x,y,2*blockWidth,blockWidth);
+
+	ctx.fillStyle = "#FF0000";
+	ctx.textAlign = "center";
+	ctx.globalAlpha = 1.0;
+	ctx.font = "bold " + (3*unitWidth/4) + "px arial";
+
+
+	ctx.fillText(txt, 
+                     x+blockWidth,
+                     y+3*blockWidth/4+5);
+    };
 
 
     this.draw = function(ctx) {
@@ -535,8 +555,7 @@ var TouchControls = function() {
 	var yLoc = Game.height - unitWidth;
 	this.drawSquare(ctx,gutterWidth,yLoc,"\u25C0", Game.keys['left']);
 	this.drawSquare(ctx,unitWidth + gutterWidth,yLoc,"\u25B6", Game.keys['right']);
-	this.drawSquare(ctx,2*unitWidth + gutterWidth,yLoc,"B",Game.keys['fireB']);
-	this.drawSquare(ctx,3*unitWidth,yLoc,"N",Game.keys['fireN']);
+	this.drawSquareG(ctx,2*unitWidth + gutterWidth,yLoc,"F",Game.keys['fireB'] || Game.keys['fireN'] );
 	this.drawSquare(ctx,4*unitWidth,yLoc,"A",Game.keys['fire']);
 
 	// Recupera el estado salvado al principio del método
