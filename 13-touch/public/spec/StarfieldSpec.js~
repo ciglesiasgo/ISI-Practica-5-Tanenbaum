@@ -26,15 +26,6 @@ describe("Clase Starfield", function(){
 	ctx = canvas.getContext('2d');
 	expect(ctx).toBeDefined();
 
-    GameOrig = Game;
-    SpriteSheetOrig= SpriteSheet;
-
-
-});
-
-    afterEach(function(){
-        Game = GameOrig;
-        SpriteSheet= SpriteSheetOrig;
     });
 
 

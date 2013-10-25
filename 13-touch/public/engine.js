@@ -361,7 +361,7 @@ Sprite.prototype.merge = function(props) {
 	    this[prop] = props[prop];
 	}
     }
-}y
+}
 
 Sprite.prototype.draw = function(ctx) {
     SpriteSheet.draw(ctx,this.sprite,this.x,this.y,this.frame,this.z);

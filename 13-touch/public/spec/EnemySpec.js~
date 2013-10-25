@@ -54,7 +54,7 @@ alternativos para algunas de las propiedades de la plantilla.
 
         ctx = canvas.getContext('2d');
         expect(ctx).toBeDefined();
-        SpriteSheetOrig= SpriteSheet;
+        
         SpriteSheet = {
           map : {missile: { sx: 0, sy: 30, w: 2, h: 10, frames: 1 },
                   ship: { sx: 0, sy: 0, w: 37, h: 42, frames: 1 },
@@ -62,7 +62,7 @@ alternativos para algunas de las propiedades de la plantilla.
           draw: function(){},
         };
         
-   
+    SpriteSheetOrig= SpriteSheet;
 
 
 });

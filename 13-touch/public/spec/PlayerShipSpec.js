@@ -15,10 +15,16 @@ describe("Clase PlayerShip", function(){
 
 	ctx = canvas.getContext('2d');
 	expect(ctx).toBeDefined();
+    GameOrig = Game;
+    SpriteSheetOrig= SpriteSheet;
 
+
+});
+
+    afterEach(function(){
+        Game = GameOrig;
+        SpriteSheet= SpriteSheetOrig;
     });
-
-
 
     it("draw", function(){
 	// Comprobamos que draw llama a SpriteSheet.draw con los
