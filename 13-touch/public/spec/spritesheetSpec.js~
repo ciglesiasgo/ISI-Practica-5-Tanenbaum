@@ -32,16 +32,9 @@ describe("Codigo que manipula el canvas en game.js", function(){
 
 	ctx = canvas.getContext('2d');
 	expect(ctx).toBeDefined();
-    GameOrig = Game;
-    SpriteSheetOrig= SpriteSheet;
-
+    });
 
 });
-
-    afterEach(function(){
-        Game = GameOrig;
-        SpriteSheet= SpriteSheetOrig;
-    });
 
 describe("Objeto singleton SpriteSheet", function(){
     //

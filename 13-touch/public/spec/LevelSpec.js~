@@ -107,7 +107,7 @@ describe("Clase LevelSpec", function(){
         
         runs(function(){
             //Game.keys = {'left':true};
-            expect(window.winGame).toHaveBeenCalled(); //Termina el nivel 1
+            expect(window.loseGame).toHaveBeenCalled(); //Termina el nivel 1
         });
     });
 });

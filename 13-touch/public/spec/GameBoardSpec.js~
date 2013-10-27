@@ -50,7 +50,6 @@ describe("Clase GameBoard", function(){
 
         ctx = canvas.getContext('2d');
         expect(ctx).toBeDefined();
-    GameOrig = Game;
     SpriteSheetOrig= SpriteSheet;
 
 

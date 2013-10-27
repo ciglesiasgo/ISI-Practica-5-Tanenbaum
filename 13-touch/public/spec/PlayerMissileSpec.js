@@ -37,8 +37,18 @@ describe("Clase PlayerMissile", function(){
 
 	ctx = canvas.getContext('2d');
 	expect(ctx).toBeDefined();
+    GameOrig = Game;
+    SpriteSheetOrig= SpriteSheet;
+
 
 });
+
+    afterEach(function(){
+        Game = GameOrig;
+        SpriteSheet= SpriteSheetOrig;
+    });
+
+
     it("draw", function(){
 		SpriteSheet = {
 		  map : {missile: { sx: 0, sy: 30, w: 2, h: 10, frames: 1 }},
@@ -61,7 +71,8 @@ describe("Clase PlayerMissile", function(){
     it("step", function(){
 			var miMissile = new PlayerMissile(1,1);
 			misil = {
-			   map : {missile: { sx: 0, sy: 30, w: 2, h: 10, frames: 1,vy: -700 }},
+			   map : {missile: { sx: 0, sy: 30, w: 2, h: 10, frames: 1,vy: -700 },
+                    srpite()},
 	   		remove: function(obj) {},
 				collide:function(){}
 			};
@@ -75,8 +86,9 @@ describe("Clase PlayerMissile", function(){
     });
     
      it("disparar",function(){
+
     Game = {width: 320, height: 480, keys: {'fire': true}};
-   
+    
     SpriteSheet = {
       map : {missile: { sx: 0, sy: 30, w: 2, h: 10, frames: 1 },
                 ship: { sx: 0, sy: 0, w: 37, h: 42, frames: 1 }},
@@ -110,7 +122,7 @@ describe("Clase PlayerMissile", function(){
   });
 
   it("un disparo por pulsación",function(){
-  
+
     Game = {width: 320, height: 480, keys: {'fire': false}};
    
     SpriteSheet = {
@@ -144,8 +156,7 @@ describe("Clase PlayerMissile", function(){
     Game = {keys: {'fire': true}};
    board.step(dt);
     expect(board.objects.length).toBe(5);
-  
-  
+
   });
 
 

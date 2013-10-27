@@ -16,9 +16,7 @@ describe("Game singleton", function(){
 
     beforeEach(function(){
 	loadFixtures('index.html');
-	GameOrig = Game;    
-    SpriteSheetOrig= SpriteSheet;
-
+	
 	sprites = {
 	    ship: { sx: 0, sy: 0, w: 37, h: 42, frames: 1 },
 	};
@@ -32,13 +30,6 @@ describe("Game singleton", function(){
 	    SpriteSheet.draw(Game.ctx,"enemy_ship",150,150);
 	    SpriteSheet.draw(Game.ctx,"enemy_circle",150,200);
 	}
-
-
-});
-
-    afterEach(function(){
-        Game = GameOrig;
-        SpriteSheet= SpriteSheetOrig;
     });
 
 
