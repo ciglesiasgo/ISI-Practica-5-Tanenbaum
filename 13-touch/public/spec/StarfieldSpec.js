@@ -29,7 +29,7 @@ describe("Clase Starfield", function(){
     GameOrig = Game;
     SpriteSheetOrig= SpriteSheet;
 
-
+    Game.initialize("game",sprites,startGame);	
 });
 
     afterEach(function(){

@@ -17,7 +17,7 @@ describe("Game singleton", function(){
     beforeEach(function(){
 	loadFixtures('index.html');
 	GameOrig = Game;    
-    SpriteSheetOrig= SpriteSheet;
+  SpriteSheetOrig= SpriteSheet;
 
 	sprites = {
 	    ship: { sx: 0, sy: 0, w: 37, h: 42, frames: 1 },
@@ -111,7 +111,7 @@ describe("Game singleton", function(){
 
 	// Prueba a reducir el número de milisegundos de espera, hasta
 	// que falle
-	waits(300)
+	waits(500)
 
 	runs(function(){
 	    expect(Game.loop.calls.length).toBeGreaterThan(10);

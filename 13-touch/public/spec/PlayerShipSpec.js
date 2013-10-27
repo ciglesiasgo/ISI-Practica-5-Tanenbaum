@@ -68,6 +68,9 @@ describe("Clase PlayerShip", function(){
 	// necesitamos Geame.keys para saber si se ha pulsado una
 	// tecla
 	Game = {width: 320, height: 480, keys: {'left': false}};
+	SpriteSheet = {
+		  map : {ship: { sx: 0, sy: 0, w: 37, h: 42, frames: 1 }}
+		};
 	
 	// Creamos un PlayerShip para testar
 	var miNave = new PlayerShip();	
@@ -88,6 +91,9 @@ describe("Clase PlayerShip", function(){
 
 	// Hacemos que se pulse la tecla left:
 	Game = {width: 320, height: 480, keys: {'left': true}};
+	SpriteSheet = {
+		  map : {ship: { sx: 0, sy: 0, w: 37, h: 42, frames: 1 }}
+		};
 
 	// Creamos un PlayerShip para testar
 	var miNave = new PlayerShip();

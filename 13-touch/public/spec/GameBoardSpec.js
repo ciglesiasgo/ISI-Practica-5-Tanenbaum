@@ -91,7 +91,9 @@ describe("Clase GameBoard", function(){
 
 
    it("interacción con Game", function(){
- 
+       	SpriteSheet = {
+		        map : {ship: { sx: 0, sy: 0, w: 37, h: 42, frames: 1 }}
+		      };
         //Creamos dos objetos en la lista
         var board = new GameBoard();
         board.add(new PlayerShip());
