@@ -350,7 +350,11 @@ FireBallB.prototype.step = function(dt)  {
     this.vy=this.vy+100;
     var collision = this.board.collide(this,OBJECT_ENEMY);
     var collisionMissile = this.board.collide(this,OBJECT_ENEMY_PROJECTILE); // Añadir un var para colision con missile
-    if(collisionMissile) {this.board.remove(this)} // Si colisiona desaparece la explosion
+    if(collisionMissile) {
+      this.board.remove(this) // Si colisiona desaparece la explosion
+      this.board.add(new Explosion(this.x + this.w/2, 
+                                         this.y + this.h/2));
+    }
     if(collision) {collision.hit(this.damage)};
     if(this.y < -this.h) { this.board.remove(this); }
     if(this.x < -this.w) { this.board.remove(this); }
@@ -368,7 +372,7 @@ var FireBallN = function(x,y){
 };
 
 FireBallN.prototype = new Sprite();
-FireBallB.prototype.type = OBJECT_FIREBALL_PROJ;
+FireBallN.prototype.type = OBJECT_FIREBALL_PROJ;
 
 FireBallN.prototype.step = function(dt)  {
 	 	
@@ -377,7 +381,11 @@ FireBallN.prototype.step = function(dt)  {
     this.vy=this.vy+100;
     var collision = this.board.collide(this,OBJECT_ENEMY);
     var collisionMissile = this.board.collide(this,OBJECT_ENEMY_PROJECTILE); // Añadir un var para colision con missile
-    if(collisionMissile) {this.board.remove(this)} // Si colisiona desaparece la explosion
+    if(collisionMissile) {
+      this.board.remove(this) // Si colisiona desaparece la explosion
+      this.board.add(new Explosion(this.x + this.w/2, 
+                                         this.y + this.h/2));
+    }
     if(collision) {collision.hit(this.damage)};
     if(this.y < -this.h) { this.board.remove(this); }
     if(this.x < -this.w) { this.board.remove(this); }
