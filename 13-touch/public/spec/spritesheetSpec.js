@@ -42,6 +42,7 @@ describe("Codigo que manipula el canvas en game.js", function(){
         Game = GameOrig;
         SpriteSheet= SpriteSheetOrig;
     });
+    });
 
 describe("Objeto singleton SpriteSheet", function(){
     //
@@ -135,6 +136,5 @@ describe("Objeto singleton SpriteSheet", function(){
  	    expect(ctx.drawImage.calls[2].args[7]).toBe(37);
  	    expect(ctx.drawImage.calls[2].args[8]).toBe(42);
 	});
-    });
 });
-
+});
