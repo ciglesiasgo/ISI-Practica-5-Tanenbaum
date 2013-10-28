@@ -39,6 +39,11 @@ describe("Clase PlayerMissile", function(){
 	expect(ctx).toBeDefined();
     GameOrig = Game;
     SpriteSheetOrig= SpriteSheet;
+        SpriteSheet = {
+          map : {missile: { sx: 0, sy: 30, w: 2, h: 10, frames: 1 },
+                  ship: { sx: 0, sy: 0, w: 37, h: 42, frames: 1 },},
+          draw: function(){},
+        };
 
 
 });
@@ -72,8 +77,9 @@ describe("Clase PlayerMissile", function(){
 			var miMissile = new PlayerMissile(1,1);
 			misil = {
 			   map : {missile: { sx: 0, sy: 30, w: 2, h: 10, frames: 1,vy: -700 }},
-	   		remove: function(obj) {},
-				collide:function(){}
+	   			remove: function(obj) {},
+				collide:function(){},
+				
 			};
 
 		miMissile.board=misil;
