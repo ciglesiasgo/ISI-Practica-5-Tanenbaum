@@ -5,7 +5,8 @@ var sprites = {
     enemy_bee: { sx: 79, sy: 0, w: 37, h: 43, frames: 1 },
     enemy_ship: { sx: 116, sy: 0, w: 42, h: 43, frames: 1 },
     enemy_circle: { sx: 158, sy: 0, w: 32, h: 33, frames: 1 },
-    explosion: { sx: 0, sy: 64, w: 64, h: 64, frames: 12 }
+    explosion: { sx: 0, sy: 64, w: 64, h: 64, frames: 12 },
+    enemy_missile: { sx: 9, sy: 42, w: 3, h: 20, frame: 1 }
 };
 
 var enemies = {
@@ -19,7 +20,7 @@ var enemies = {
     //  tiene parámetros B y C que le dotan de una velocidad
     //  horizontal sinusoidal suave.
     ltr:      { x: 0,   y: -100, sprite: 'enemy_purple', health: 10, 
-		B: 75, C: 1, E: 100  },
+		B: 75, C: 1, E: 100 , missiles: 2},
 
     // circle tiene velocidad sinusoidal vx e vy, que junto al
     // parámetro H de desplazamiento en el tiempo le dotan de un
@@ -31,11 +32,11 @@ var enemies = {
     //  magnitudes que les hacen serpentear de manera diferente según
     //  van bajando.
     wiggle:   { x: 100, y: -50, sprite: 'enemy_bee', health: 20, 
-		B: 50, C: 4, E: 100 },
+		B: 50, C: 4, E: 100, missiles: 2 },
     step:     { x: 0,   y: -50, sprite: 'enemy_circle', health: 10,
 		B: 150, C: 1.2, E: 75 },
     boss:    { x: 140,   y: -50, sprite: 'enemy_ship', health: 5000, 
-		E: 10 },
+		E: 10, missiles: 2 },
 };
 
 
@@ -331,7 +332,7 @@ PlayerMissile.prototype.step = function(dt)  {
 // fireballB
 var FireBallB = function(x,y){
 
-	 this.setup('explosion',{vy: -1500, vx: -150, damage: 20});
+	 this.setup('explosion',{vy: -1500, vx: -150, damage: 20, health: 10});
     this.x = x - this.w/2; 
 
     this.y = y - this.h; 
@@ -348,6 +349,8 @@ FireBallB.prototype.step = function(dt)  {
     this.y += this.vy * dt;
     this.vy=this.vy+100;
     var collision = this.board.collide(this,OBJECT_ENEMY);
+    var collisionMissile = this.board.collide(this,OBJECT_ENEMY_PROJECTILE); // Añadir un var para colision con missile
+    if(collisionMissile) {this.board.remove(this)} // Si colisiona desaparece la explosion
     if(collision) {collision.hit(this.damage)};
     if(this.y < -this.h) { this.board.remove(this); }
     if(this.x < -this.w) { this.board.remove(this); }
@@ -373,6 +376,8 @@ FireBallN.prototype.step = function(dt)  {
     this.y += this.vy * dt;
     this.vy=this.vy+100;
     var collision = this.board.collide(this,OBJECT_ENEMY);
+    var collisionMissile = this.board.collide(this,OBJECT_ENEMY_PROJECTILE); // Añadir un var para colision con missile
+    if(collisionMissile) {this.board.remove(this)} // Si colisiona desaparece la explosion
     if(collision) {collision.hit(this.damage)};
     if(this.y < -this.h) { this.board.remove(this); }
     if(this.x < -this.w) { this.board.remove(this); }
@@ -421,8 +426,8 @@ Enemy.prototype.type = OBJECT_ENEMY;
 // es la edad de este enemigo
 Enemy.prototype.baseParameters = { A: 0, B: 0, C: 0, D: 0, 
                                    E: 0, F: 0, G: 0, H: 0,
-                                   t: 0 };
-
+                                   t: 0, reloadTime: 0.75, 
+                                   reload: 0 };
 Enemy.prototype.step = function(dt) {
     // Actualizamos la edad
     this.t += dt;
@@ -457,6 +462,18 @@ Enemy.prototype.step = function(dt) {
 	this.board.remove(this);
     }
 
+    if(this.reload <= 0 && Math.random() < (this.firePercentage || 0.01) ) {
+	this.reload = this.reloadTime;
+	if(this.missiles == 2) {
+	    this.board.add(new EnemyMissile(this.x+this.w-2,this.y+this.h/2));
+	    this.board.add(new EnemyMissile(this.x+2,this.y+this.h/2));
+	} else {
+	    this.board.add(new EnemyMissile(this.x+this.w/2,this.y+this.h));
+	}
+
+    }
+    this.reload-=dt;
+
     if(this.y > Game.height ||
        this.x < -this.w ||
        this.x > Game.width) {
@@ -473,12 +490,30 @@ Enemy.prototype.hit = function(damage) {
 	      this.board.remove(this);
     }
 }
+var EnemyMissile = function(x,y) {
+    this.setup('enemy_missile',{ vy: 200, damage: 10 });
+    this.x = x - this.w/2;
+    this.y = y;
+};
 
+EnemyMissile.prototype = new Sprite();
+EnemyMissile.prototype.type = OBJECT_ENEMY_PROJECTILE;
+
+EnemyMissile.prototype.step = function(dt)  {
+    this.y += this.vy * dt;
+    var collision = this.board.collide(this,OBJECT_PLAYER)
+    if(collision) {
+	collision.hit(this.damage);
+	this.board.remove(this);
+    } else if(this.y > Game.height) {
+	this.board.remove(this); 
+    }
+};
 
 // Constructor para la explosión
 
 var Explosion = function(centerX,centerY) {
-    this.setup('explosion', { frame: 0 });
+    this.setup('explosion', { frame: 0});
     this.x = centerX - this.w/2;
     this.y = centerY - this.h/2;
     this.subFrame = 0;
