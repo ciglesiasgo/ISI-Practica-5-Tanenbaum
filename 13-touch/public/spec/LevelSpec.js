@@ -64,6 +64,7 @@ describe("Clase LevelSpec", function(){
     	ctx = canvas.getContext('2d');
     	expect(ctx).toBeDefined();
     SpriteSheetOrig= SpriteSheet;
+	GameOrig=Game;
 
 
 });
@@ -78,9 +79,9 @@ describe("Clase LevelSpec", function(){
 
         
         spyOn(window, "startGame").andCallThrough();
-        spyOn(window, "playGame");
-        spyOn(window, "loseGame");
-        spyOn(window, "winGame");
+        spyOn(window, "playGame").andCallThrough();
+        spyOn(window, "loseGame").andCallThrough();
+        spyOn(window, "winGame").andCallThrough();
 
         Game.initialize("game",sprites,startGame);
 
@@ -102,11 +103,11 @@ describe("Clase LevelSpec", function(){
           Game.keys = {'fire':false};
           expect(window.playGame).toHaveBeenCalled(); 
         });
-
-        waits(1000);
+	
+        waits(10000);
         
         runs(function(){
-            //Game.keys = {'left':true};
+            
             expect(window.loseGame).toHaveBeenCalled(); //Termina el nivel 1
         });
     });
