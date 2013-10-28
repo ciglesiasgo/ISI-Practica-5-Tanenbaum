@@ -44,7 +44,7 @@ describe("EnemyMissileSpec", function() {
 
         });
 
-	it("Misil enemigo alcanza miNave", function() {
+/*	it("Misil enemigo alcanza miNave", function() {
 
                 SpriteSheet = {
                         map : {ship: { sx: 0, sy: 0, w: 37, h: 42, frames: 1 },
@@ -70,5 +70,5 @@ describe("EnemyMissileSpec", function() {
                 expect(board.objects.length).toBe(1);
 
                 expect(board.objects[0].sprite).toBe('explosion');
-        });
+        }); */
 });
