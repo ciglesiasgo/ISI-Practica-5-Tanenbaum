@@ -53,6 +53,7 @@ var startGame = function() {
     Game.setBoard(3,new TitleScreen("Alien Invasion", 
                                     "Press fire to start playing",
                                     playGame));
+    //Game.setBoard(5,new GamePoints(0));       Lo añadimos en playGame, para que se reinicie siempre al empezar
 };
 
 
@@ -78,24 +79,25 @@ var level1 = [
     [ 18200,    20000, 500,         'straight', { x: 90  } ],
     [ 18200,    20000, 500,         'straight', { x: 10  } ],
     [ 22000,    25000, 400,         'wiggle',   { x: 150 } ],
-    [ 22000,    25000, 400,         'wiggle',   { x: 100 }]
+    [ 22000,    25000, 400,         'wiggle',   { x: 100 } ]
 ];
 
 var level2= [
     [ 0,        4000,  500,         'step' ,       {E: 70, health:20}         ],
-    [ 1000,     1200,  200,         'boss'               ],
+    [ 1000,     1200,  200,         'boss',           {points: 1000}      ],   // BOSS 1000 puntos!
     [ 6000,     10000, 500  ,       'ltr' ,        { x: 180, A: 0,C: 10, E: 50, F:100, G:1, H: Math.PI/2  }],
     [ 10000,    18000, 500,         'circle',   {x:200, A:10, B:-200, C:2, E:70, F:80, H: Math.sin(Math.PI)}],
-  //  [ 20000,    21500, 400,         'wiggle',   { x: 250, B:-60, C:1, E:70, G:2} ],
+  //  [ 20000,    21500, 400,         'wiggle',   { x: 250, B:-60, C:1, E:70, G:2} ], //Comentar este
     [ 20000,    21500, 400,         'wiggle',   { x: 50, B:60, C:1, E:70, G:2} ],    
     [ 20000,    23000, 400,         'wiggle',   { x: 250, B:-60, C:0.5, E:70, G:2} ],
     [ 20000,    23000, 400,         'wiggle',   { x: 50, B:60, C:0.5, E:70, G:2}  ],
-    [ 25000,    25500, 500,         'straight', { x:0, B:160, C:1.7, E:400}],
-    [ 25000,    25500, 500,         'straight', { x:280, B:160, C:-1.7, E:400}]
+    [ 25000,    25500, 500,         'straight', { x:0, B:160, C:1.7, E:400, points: 300}],     //Cazas 300puntos
+    [ 25000,    25500, 500,         'straight', { x:280, B:160, C:-1.7, E:400, points: 300}]   //Cazas 300puntos
     
 ];
 
 var playGame = function() {
+    Game.setBoard(5,new GamePoints(0)); 
     var board = new GameBoard();
     board.add(new PlayerShip());
 
@@ -465,9 +467,10 @@ Enemy.prototype.step = function(dt) {
 Enemy.prototype.hit = function(damage) {
     this.health -= damage;
     if(this.health <= 0) {
-	this.board.add(new Explosion(this.x + this.w/2, 
-                                     this.y + this.h/2));
-	this.board.remove(this);
+        Game.points += this.points || 100;   //Boss y cazas darán más puntos 1000 y 300
+	      this.board.add(new Explosion(this.x + this.w/2, 
+                                         this.y + this.h/2));
+	      this.board.remove(this);
     }
 }
 
