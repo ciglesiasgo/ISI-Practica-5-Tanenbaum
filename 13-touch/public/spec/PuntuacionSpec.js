@@ -38,4 +38,10 @@ describe("Puntuaciones", function() {
                 expect(Game.points).toBe(100);
         });
 
+        it("Reinicio de contador", function() {
+                var Points = new GamePoints(500);
+                loseGame();
+                expect(Game.points).toBe(0);
+        });
+
 });
