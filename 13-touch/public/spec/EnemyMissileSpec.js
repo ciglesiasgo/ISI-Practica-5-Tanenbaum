@@ -20,7 +20,7 @@ describe("EnemyMissileSpec", function() {
                 Game = GameOrig;
         });
 
-        it("step()", function() {
+        it("Colision Misiles Enemigos", function() {
                
                 var misilEnemy = new EnemyMissile(1,1);
 
@@ -42,5 +42,33 @@ describe("EnemyMissileSpec", function() {
                 expect(dummy.remove).toHaveBeenCalledWith(misilEnemigo);
                 expect(obj.hit).toHaveBeenCalledWith(misilEnemigo.damage);
 
+        });
+
+	it("Misil enemigo alcanza miNave", function() {
+
+                SpriteSheet = {
+                        map : {ship: { sx: 0, sy: 0, w: 37, h: 42, frames: 1 },
+                                         explosion: { sx: 0, sy: 64, w: 64, h: 64, frames: 12 },
+                                        enemy_missile: { sx: 9, sy: 42, w: 3, h: 20, frame: 1 } }
+                };
+                
+                var board = new GameBoard();
+        
+                var missile = new EnemyMissile(1,1);
+                
+                var ship = new PlayerShip();
+
+		var dt= 30/10000;
+
+                board.add(missile);
+                board.add(ship);
+
+                expect(board.objects.length).toBe(2);
+
+                board.step(dt);
+
+                expect(board.objects.length).toBe(1);
+
+                expect(board.objects[0].sprite).toBe('explosion');
         });
 });
