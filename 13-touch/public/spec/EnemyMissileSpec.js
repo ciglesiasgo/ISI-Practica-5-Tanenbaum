@@ -22,6 +22,12 @@ describe("EnemyMissileSpec", function() {
 
         it("Colision Misiles Enemigos", function() {
                
+	 	SpriteSheet = {
+                        map : {ship: { sx: 0, sy: 0, w: 37, h: 42, frames: 1 },
+                                         explosion: { sx: 0, sy: 64, w: 64, h: 64, frames: 12 },
+                                        enemy_missile: { sx: 9, sy: 42, w: 3, h: 20, frame: 1 } }
+                };
+
                 var misilEnemy = new EnemyMissile(1,1);
 
                 var obj = { hit: function(){} };
@@ -44,7 +50,7 @@ describe("EnemyMissileSpec", function() {
 
         });
 
-/*	it("Misil enemigo alcanza miNave", function() {
+	it("Misil enemigo alcanza miNave", function() {
 
                 SpriteSheet = {
                         map : {ship: { sx: 0, sy: 0, w: 37, h: 42, frames: 1 },
@@ -57,6 +63,8 @@ describe("EnemyMissileSpec", function() {
                 var missile = new EnemyMissile(1,1);
                 
                 var ship = new PlayerShip();
+		ship.x=1;
+		ship.y=1;
 
 		var dt= 30/10000;
 
@@ -67,8 +75,9 @@ describe("EnemyMissileSpec", function() {
 
                 board.step(dt);
 
-                expect(board.objects.length).toBe(1);
+		//UNA EXPLOSION SON 7 OBJETOS SUPERPUESTOS
+                expect(board.objects.length).toBe(7);
 
                 expect(board.objects[0].sprite).toBe('explosion');
-        }); */
+        }); 
 });
